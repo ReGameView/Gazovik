@@ -1,0 +1,12 @@
+c:\users\regameview\documents\visual studio 2015\Projects\Gazovik\bin\Debug\Gazovik.exe.config
+c:\users\regameview\documents\visual studio 2015\Projects\Gazovik\bin\Debug\Gazovik.exe
+c:\users\regameview\documents\visual studio 2015\Projects\Gazovik\bin\Debug\Gazovik.pdb
+c:\users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.Form1.resources
+c:\users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.Properties.Resources.resources
+c:\users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.csproj.GenerateResource.Cache
+c:\users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.exe
+c:\users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.pdb
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.AddTeacher.resources
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.deleteStudents.resources
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.addStudents.resources
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.csprojResolveAssemblyReference.cache
