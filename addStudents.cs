@@ -76,7 +76,9 @@ namespace Gazovik
         public void InsertStudent(string data)
         { 
             SaveFileStudents.FileName = fileName1;
-            File.WriteAllText(SaveFileStudents.FileName, data);
+            //FIXME: Файл уже считывается в форме MainForm.
+            //File.WriteAllText(SaveFileStudents.FileName, data);
+            this.Close();
         }
     }
 }

@@ -12,14 +12,26 @@ namespace Gazovik
 {
     public partial class deleteStudents : Form
     {
-        string[,] students = new String[5,255];
-        public deleteStudents()
+        //string[,] students = new String[5,255];
+        public deleteStudents(string[,] students)
         {
             InitializeComponent();
-            /*foreach (var item in students)
+            int count = 0;
+            foreach (var item in students)
             {
-                comboBox1.Items.Add("1");
-            }*/
+                try
+                {
+                    comboBox1.Items.Add(item);
+                }
+                catch (System.NullReferenceException err)
+                {
+                    break;
+                }catch(System.ArgumentNullException error)
+                {
+                    break;
+                }
+                count++;
+            }
             
         }
     }

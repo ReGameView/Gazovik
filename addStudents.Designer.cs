@@ -123,7 +123,7 @@
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(108, 55);
+            this.monthCalendar1.Location = new System.Drawing.Point(108, 62);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.ShowToday = false;
             this.monthCalendar1.TabIndex = 11;
@@ -136,7 +136,7 @@
             this.maskedTextBox1.Mask = "00/00/0000";
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.ReadOnly = true;
-            this.maskedTextBox1.Size = new System.Drawing.Size(160, 20);
+            this.maskedTextBox1.Size = new System.Drawing.Size(164, 20);
             this.maskedTextBox1.TabIndex = 12;
             this.maskedTextBox1.ValidatingType = typeof(System.DateTime);
             this.maskedTextBox1.Click += new System.EventHandler(this.comboBox1_DropDown);
@@ -175,6 +175,7 @@
             this.ShowInTaskbar = false;
             this.Text = "Добавить студента";
             this.TopMost = true;
+            this.Click += new System.EventHandler(this.comboBox1_DropDownClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

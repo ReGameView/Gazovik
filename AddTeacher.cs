@@ -28,6 +28,7 @@ namespace Gazovik
             {
                 string fileName = file.FileName;
                 File.WriteAllText(fileName, textBox1.Text);
+                this.Close();
             }
         }
     }

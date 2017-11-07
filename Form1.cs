@@ -17,7 +17,8 @@ namespace Gazovik
         public StreamReader teacher, students;
         
         public bool OpenStudents = false;
-        public string[] countStudents = new string[255];
+        //Full array data students.
+        public string[,] countStudents = new string[10,255];
 
         public string fileName;
 
@@ -27,6 +28,7 @@ namespace Gazovik
             button2.Visible = false;
         }
 
+        //Открыть файл учителя
         private void button1_Click(object sender, EventArgs e)
         {
             
@@ -48,75 +50,46 @@ namespace Gazovik
             }
         }
 
+        //Освобождение файла (пока в релизе)
         private void button2_Click(object sender, EventArgs e)
         {
             file.Dispose();
             teacher.Dispose();
         }
 
+        //Добавить учителя
         private void button3_Click(object sender, EventArgs e)
         {
-            students.Dispose();
             AddTeacher FormTeacher = new AddTeacher();
             FormTeacher.ShowDialog();
         }
 
+        //Добавить ученика
         private void добавитьУченикаToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //students.Dispose();
             addStudents FormAddStudents = new addStudents(file.FileName);
             FormAddStudents.ShowDialog();
         }
 
+        //Удалить ученика
         private void удалитьУченикаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (OpenStudents)
             {
-                deleteStudents FormStudentsDelete = new deleteStudents();
+                deleteStudents FormStudentsDelete = new deleteStudents(countStudents);
                 FormStudentsDelete.ShowDialog();
             }
-            else
-            {
-                students = new StreamReader(file.FileName);
-                string[] data;
-                int count = 0;
-                string line;
-                int len = 0;
-                while (true)
-                {
-                    count = 0;
-                    data = null;
-                    data = new String[5];
-                    line = students.ReadLine();
-                    int j = 0;
-                    if (line == null)
-                    {
-                        break;
-                    }
-                    len = line.Length;
-                    for (int i = 0; i != len; i++)
-                    {
-                        if (line[i] == '|')
-                        {
-                            count++;
-                            break;
-                        }
-                        else
-                        {
-                            data[count] += line[i];
-                        }
-                    }
-                    countStudents[j] = data[0];
-                    j++;
-                }
-            }
-
         }
 
+        //Изменяем данные о учениках. Иницилизируем форму и посылаем ей переменную countStudents
         private void изменитьДанныеУченикаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            updateStudents formUpdateStudents = new updateStudents(countStudents);
+            formUpdateStudents.ShowDialog();
         }
 
+        //Деффолтная, для отображения студентов. В будущем переделаю на моментальное отоброжение
         private void показатьИнформациюToolStripMenuItem_Click(object sender, EventArgs e)
         {
             добавитьУченикаToolStripMenuItem.Visible = true;
@@ -126,6 +99,7 @@ namespace Gazovik
             file.Filter = "Student Files|*.student";
             file.Title = "Select a Student File";
             //dataGridView1.Rows.Clear();
+            // "Чёрный ящик"
             if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 OpenStudents = true;
@@ -171,11 +145,22 @@ namespace Gazovik
                         }
                     }
                     dataGridView1.Rows.Add(data);
-                    countStudents[j] = data[0];
+                    AddInCountStudents(data, j);
                     j++;
                 }
             }
             показатьИнформациюToolStripMenuItem.Visible = false;  
+        }
+
+        //Заполняем переменную countStudents
+        private void AddInCountStudents(string[] data, int j)
+        {
+            int count = 0;
+            foreach(string element in data)
+            {
+                countStudents[count, j] = element;
+                count++;
+            }
         }
     }
 }
