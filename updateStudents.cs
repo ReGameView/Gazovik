@@ -55,5 +55,10 @@ namespace Gazovik
             //textBox1.Text = students[comboBox1.SelectedItem,0];
             MessageBox.Show(i.ToString());
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
