@@ -11,3 +11,13 @@ C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazo
 C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.addStudents.resources
 C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.csprojResolveAssemblyReference.cache
 C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.updateStudents.resources
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.settings.resources
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\obj\Debug\Gazovik.SelectTeacher.resources
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\bin\Debug\EntityFramework.dll
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\bin\Debug\System.Data.SQLite.dll
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\bin\Debug\EntityFramework.xml
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\regameview\documents\visual studio 2015\Projects\Gazovik\bin\Debug\System.Data.SQLite.xml

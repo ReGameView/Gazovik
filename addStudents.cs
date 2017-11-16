@@ -8,21 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Data.SQLite;
+using System.Data.Common;
 
 namespace Gazovik
 {
     public partial class addStudents : Form
     {
-        //Form1 MainForm = Form1;
-
-        public SaveFileDialog SaveFileStudents = new SaveFileDialog();
         bool firstDate = true;
         DateTime today = new DateTime();
-        string fileName1;
 
-        public addStudents(string fileName)
+        public addStudents()
         {
-            fileName1 = fileName;
             InitializeComponent();
             monthCalendar1.ShowToday = false;
             today = monthCalendar1.TodayDate;
@@ -62,23 +59,25 @@ namespace Gazovik
         {
             if ((textBox1.Text == "") || (textBox4.Text == "") || (textBox5.Text == "") ||
                 (textBox1.Text == " ") || (textBox4.Text == " ") || (textBox5.Text == " ") ||
-                (maskedTextBox1.Text == "") || (maskedTextBox2.Text == ""))
+                (maskedTextBox1.Text == "") || (maskedTextBox2.Text == "") ||
+                (maskedTextBox3.Text == ""))
                 MessageBox.Show("Введите все данные с форм");
             else
             {
-                string data = textBox1.Text + " | " + maskedTextBox2.Text + " | " + maskedTextBox2.Text + " | " + textBox4.Text + " | " + textBox5.Text + " \\";
-                string messages = "Вы добавили: " + textBox1.Text + " " + maskedTextBox2.Text + " " + maskedTextBox2.Text + " " + textBox4.Text + " " + textBox5.Text + ".";
-                MessageBox.Show(messages);
-                InsertStudent(data);
+                string[] data = new string[10];
+                data[0] = textBox1.Text;
+                data[1] = maskedTextBox1.Text;
+                data[2] = maskedTextBox2.Text;
+                data[3] = textBox4.Text;
+                data[4] = textBox5.Text;
+                data[5] = maskedTextBox3.Text;
+                MySQLi sql = new MySQLi();
+                string query = "INSERT INTO `students` VALUES(null, \"" + data[0] + "\", \"" + data[1] + "\", \"" + data[2] + "\", \"" + data[3] + "\", \"" + data[4] + "\", \"" + data[5] + "\");";
+                sql.query(query);
+                MessageBox.Show("Запись добавлена");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-        }
-
-        public void InsertStudent(string data)
-        { 
-            SaveFileStudents.FileName = fileName1;
-            //FIXME: Файл уже считывается в форме MainForm.
-            //File.WriteAllText(SaveFileStudents.FileName, data);
-            this.Close();
         }
     }
 }

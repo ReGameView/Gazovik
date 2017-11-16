@@ -42,6 +42,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -65,7 +67,7 @@
             // maskedTextBox2
             // 
             this.maskedTextBox2.Location = new System.Drawing.Point(107, 93);
-            this.maskedTextBox2.Mask = "(999) 000-0000";
+            this.maskedTextBox2.Mask = "+7 (999) 000-0000";
             this.maskedTextBox2.Name = "maskedTextBox2";
             this.maskedTextBox2.Size = new System.Drawing.Size(160, 20);
             this.maskedTextBox2.TabIndex = 26;
@@ -176,6 +178,25 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 172);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(93, 13);
+            this.label6.TabIndex = 28;
+            this.label6.Text = "Телеф родителя:";
+            this.label6.Visible = false;
+            // 
+            // maskedTextBox3
+            // 
+            this.maskedTextBox3.Location = new System.Drawing.Point(107, 169);
+            this.maskedTextBox3.Mask = "+7 (999) 000-0000";
+            this.maskedTextBox3.Name = "maskedTextBox3";
+            this.maskedTextBox3.Size = new System.Drawing.Size(160, 20);
+            this.maskedTextBox3.TabIndex = 29;
+            this.maskedTextBox3.Visible = false;
+            // 
             // updateStudents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -183,8 +204,10 @@
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(295, 266);
             this.ControlBox = false;
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.monthCalendar1);
+            this.Controls.Add(this.maskedTextBox3);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.maskedTextBox2);
             this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.textBox5);
@@ -222,5 +245,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
     }
 }

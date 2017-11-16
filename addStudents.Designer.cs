@@ -40,6 +40,8 @@
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBox2 = new System.Windows.Forms.MaskedTextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.maskedTextBox3 = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -146,10 +148,27 @@
             // maskedTextBox2
             // 
             this.maskedTextBox2.Location = new System.Drawing.Point(108, 59);
-            this.maskedTextBox2.Mask = "(999) 000-0000";
+            this.maskedTextBox2.Mask = "+7(999) 000-0000";
             this.maskedTextBox2.Name = "maskedTextBox2";
-            this.maskedTextBox2.Size = new System.Drawing.Size(160, 20);
+            this.maskedTextBox2.Size = new System.Drawing.Size(164, 20);
             this.maskedTextBox2.TabIndex = 14;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 146);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(79, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Телефон род.:";
+            // 
+            // maskedTextBox3
+            // 
+            this.maskedTextBox3.Location = new System.Drawing.Point(108, 143);
+            this.maskedTextBox3.Mask = "+7(999) 000-0000";
+            this.maskedTextBox3.Name = "maskedTextBox3";
+            this.maskedTextBox3.Size = new System.Drawing.Size(164, 20);
+            this.maskedTextBox3.TabIndex = 16;
             // 
             // addStudents
             // 
@@ -157,6 +176,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(280, 229);
             this.Controls.Add(this.monthCalendar1);
+            this.Controls.Add(this.maskedTextBox3);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.maskedTextBox2);
             this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.textBox5);
@@ -195,5 +216,7 @@
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.MaskedTextBox maskedTextBox2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox3;
     }
 }

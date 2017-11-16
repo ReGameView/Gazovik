@@ -8,16 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Data.SQLite;
+using System.Data.Common;
 
 namespace Gazovik
 {
     public partial class Form1 : Form
     {
-        public OpenFileDialog file = new OpenFileDialog();
-        public StreamReader teacher, students;
-        
+
+        private string[,] dataTeacher = new string[5, 5];
+        IniFile INI = new IniFile("config.ini");
+        public string DataBasesName;
         public bool OpenStudents = false;
-        //Full array data students.
         public string[,] countStudents = new string[10,255];
 
         public string fileName;
@@ -25,141 +27,107 @@ namespace Gazovik
         public Form1()
         {
             InitializeComponent();
-            button2.Visible = false;
+            auto_read();
         }
 
-        //Открыть файл учителя
+        public void OK_selected_teacher()
+        {
+            ученикиToolStripMenuItem.Visible = true;
+            добавитьУченикаToolStripMenuItem.Visible = true;
+            удалитьУченикаToolStripMenuItem.Visible = true;
+            изменитьДанныеУченикаToolStripMenuItem.Visible = true;
+            OpenStudents = true;
+            label1.Visible = false;
+            label2.Visible = false;
+            button1.Visible = false;
+            button3.Visible = false;
+            dataGridView1.Visible = true;
+        }
+
+        private void auto_read()
+        {
+            if (INI.KeyExists("Name", "DataBase"))
+                DataBasesName = INI.ReadINI("DataBase", "Name");
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            file.Filter = "Teacher Files|*.teacher";
-            file.Title = "Select a Teacher File";
+            SelectTeacher FormSelectTeacher = new SelectTeacher();
+            FormSelectTeacher.ShowDialog();
 
-            if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if(FormSelectTeacher.DialogResult == DialogResult.OK)
             {
-                teacher = new StreamReader(file.FileName);
-                button1.Visible = false;
-                button3.Visible = false;
-                label1.Visible = true;
-                label2.Text = teacher.ReadLine().ToString();
-                label2.Visible = true;
-                menuStrip1.Visible = true;
-                добавитьУченикаToolStripMenuItem.Visible = false;
-                удалитьУченикаToolStripMenuItem.Visible = false;
-                изменитьДанныеУченикаToolStripMenuItem.Visible = false;
+                MessageBox.Show(FormSelectTeacher.returnData());
+                OK_selected_teacher();
             }
+            addRowsFromDB();
         }
 
-        //Освобождение файла (пока в релизе)
-        private void button2_Click(object sender, EventArgs e)
-        {
-            file.Dispose();
-            teacher.Dispose();
-        }
-
-        //Добавить учителя
         private void button3_Click(object sender, EventArgs e)
         {
             AddTeacher FormTeacher = new AddTeacher();
             FormTeacher.ShowDialog();
         }
 
-        //Добавить ученика
         private void добавитьУченикаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //students.Dispose();
-            addStudents FormAddStudents = new addStudents(file.FileName);
+            addStudents FormAddStudents = new addStudents();
             FormAddStudents.ShowDialog();
+            if (FormAddStudents.DialogResult == DialogResult.OK)
+            {
+                updateData();
+            }
         }
 
-        //Удалить ученика
         private void удалитьУченикаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (OpenStudents)
             {
-                deleteStudents FormStudentsDelete = new deleteStudents(countStudents);
+                deleteStudents FormStudentsDelete = new deleteStudents();
                 FormStudentsDelete.ShowDialog();
+                if (FormStudentsDelete.DialogResult == DialogResult.OK)
+                {
+                    updateData();
+                }
             }
         }
 
-        //Изменяем данные о учениках. Иницилизируем форму и посылаем ей переменную countStudents
         private void изменитьДанныеУченикаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            updateStudents formUpdateStudents = new updateStudents(countStudents);
+            updateStudents formUpdateStudents = new updateStudents();
             formUpdateStudents.ShowDialog();
         }
 
-        //Деффолтная, для отображения студентов. В будущем переделаю на моментальное отоброжение
-        private void показатьИнформациюToolStripMenuItem_Click(object sender, EventArgs e)
+        private void настройкиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            добавитьУченикаToolStripMenuItem.Visible = true;
-            удалитьУченикаToolStripMenuItem.Visible = true;
-            изменитьДанныеУченикаToolStripMenuItem.Visible = true;
-            file.Dispose();
-            file.Filter = "Student Files|*.student";
-            file.Title = "Select a Student File";
-            //dataGridView1.Rows.Clear();
-            // "Чёрный ящик"
-            if (file.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                OpenStudents = true;
-                label1.Visible = false;
-                label2.Visible = false;
-                button1.Visible = false;
-                button2.Visible = false;
-                dataGridView1.Visible = true;
-                fileName = file.FileName;
-                students = new StreamReader(fileName);
-                string[] data;
-                int count = 0;
-                string line;
-                int len = 0;    
-                int j = 0;
-                while (true)
-                {
-                    count = 0;
-                    data = null;
-                    data = new String[5];
-                    line = students.ReadLine();
-                    if (line == null)
-                    {
-                        break;
-                    }
-                    len = line.Length;
-                    for (int i = 0; i != len; i++)
-                    {
-                        if(!(line[i] == '\\'))
-                        {
-                            if (line[i] == '|')
-                            {
-                                count++;
-                            }
-                            else
-                            {
-                                data[count] += line[i];
-                            }
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    dataGridView1.Rows.Add(data);
-                    AddInCountStudents(data, j);
-                    j++;
-                }
-            }
-            показатьИнформациюToolStripMenuItem.Visible = false;  
+            settings FormSettings = new settings();
+            FormSettings.ShowDialog();
         }
 
-        //Заполняем переменную countStudents
-        private void AddInCountStudents(string[] data, int j)
+        public void updateData()
         {
-            int count = 0;
-            foreach(string element in data)
+            int rowsCount = dataGridView1.Rows.Count;
+            for (int i = 0; i < rowsCount; i++)
             {
-                countStudents[count, j] = element;
-                count++;
+                dataGridView1.Rows.Remove(dataGridView1.Rows[0]);
+            }
+            addRowsFromDB();
+        }
+
+        private void addRowsFromDB()
+        {
+            MySQLi sql = new MySQLi();
+            SQLiteDataReader reader = sql.query("SELECT * FROM `students`");
+            string[] data = new string[10];
+            foreach (DbDataRecord record in reader)
+            {
+                data[0] = record["fio"].ToString();
+                data[1] = record["b_day"].ToString();
+                data[2] = record["mobile"].ToString();
+                data[3] = record["address"].ToString();
+                data[4] = record["fio_parent"].ToString();
+                data[5] = record["fio_mobile"].ToString();
+                dataGridView1.Rows.Add(data);
             }
         }
     }

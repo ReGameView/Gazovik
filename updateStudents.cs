@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SQLite;
+using System.Data.Common;
 
 namespace Gazovik
 {
@@ -14,46 +16,60 @@ namespace Gazovik
     {
         DateTime today = new DateTime();
         string[,] students = new string[10, 255];
-        public updateStudents(string[,] students)
+        public updateStudents()
         {
             InitializeComponent();
-            int count = 0;
-            foreach (string element in students)
+            MySQLi sql = new MySQLi();
+            SQLiteDataReader reader = sql.query("SELECT * FROM `students`");
+            int i = 0;
+            foreach(DbDataRecord record in reader)
             {
-                try
-                {
-                    comboBox1.Items.Add(element);
-                    count++;
-                }
-                catch (System.NullReferenceException err)
-                {
-                    break;
-                }
-                catch (System.ArgumentNullException error)
-                {
-                    break;
-                }
+                students[0,i] = record["fio"].ToString();
+                comboBox1.Items.Add(record["fio"].ToString());
+                students[1, i] = record["b_day"].ToString();
+                students[2, i] = record["mobile"].ToString();
+                students[3, i] = record["address"].ToString();
+                students[4, i] = record["fio_parent"].ToString();
+                students[5, i] = record["fio_mobile"].ToString();
+                i++;
             }
-                /*monthCalendar1.ShowToday = false;*/
+            /*try
+            {
                 today = monthCalendar1.TodayDate;
-                monthCalendar1.MinDate = new DateTime(today.Year - 60, today.Month, today.Day);
-                monthCalendar1.MaxDate = today;
             }
+            catch(NullReferenceException)
+            {
+
+            }
+            /*monthCalendar1.MinDate = new DateTime(today.Year - 60, today.Month, today.Day);
+            monthCalendar1.MaxDate = today;*/
+        }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int i = comboBox1.SelectedIndex;
+            string i = comboBox1.SelectedItem.ToString();
+            MessageBox.Show(i);
             //"Всё видимое видимо"
-            label1.Visible = true; label2.Visible = true; label3.Visible = true; label4.Visible = true; label5.Visible = true; textBox1.Visible = true; maskedTextBox1.Visible = true; maskedTextBox2.Visible = true; textBox4.Visible = true; textBox5.Visible = true; button1.Visible = true;
-            //Не выводит данные, скорее всего индекс или массив пустой. Перепроверить.
-            textBox1.Text = students[0,i];
+            int count = 0;
+            while(true)
+            {
+                if (i == students[0, count])
+                {
+                    break;
+                }
+                else
+                {
+                    count++;
+                }
+            }
+            /*.Text = students[0, i];
             maskedTextBox1.Text = students[1, i];
             maskedTextBox2.Text = students[2, i];
             textBox4.Text = students[3, i];
-            textBox5.Text = students[4, i];
-
+            textBox5.Text = students[4, i];*/
+            label1.Visible = true; label2.Visible = true; label3.Visible = true; label4.Visible = true; label5.Visible = true; textBox1.Visible = true; maskedTextBox1.Visible = true; maskedTextBox2.Visible = true; textBox4.Visible = true; textBox5.Visible = true; button1.Visible = true;
             //textBox1.Text = students[comboBox1.SelectedItem,0];
-            MessageBox.Show(i.ToString());
+            /*MessageBox.Show(i.ToString());*/
         }
 
         private void button2_Click(object sender, EventArgs e)
